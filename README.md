@@ -2,6 +2,14 @@
 
 End-to-end pipeline that turns Arabic audio into searchable, summarised knowledge.
 
+## Live demo
+
+Gradio share link (temporary, expires after 1 week from launch):
+**https://814df51487d4002494.gradio.live**
+
+If the link is dead, follow [Run locally](#run-locally) below — `python app.py`
+prints a fresh share URL on startup.
+
 ```
 audio  -->  ASR (Whisper)  -->  transcript  -->  summarise (mT5/AraBART)
                                     |
@@ -34,15 +42,25 @@ nlp_project/
   requirements.txt
 ```
 
-## Quick start
+## Run locally
+
+Requires Python 3.10+ (3.12 tested). Models download from Hugging Face on first
+run (~1.5 GB cached under `~/.cache/huggingface`).
 
 ```bash
+git clone https://github.com/menna2150/Arabic-Audio-Understanding-Retrieval-system-NLP-.git
+cd Arabic-Audio-Understanding-Retrieval-system-NLP-
+
+python -m venv .venv
+# Windows:  .venv\Scripts\activate
+# Linux/macOS: source .venv/bin/activate
+
 pip install -r requirements.txt
 
-# 1. Build a search index from the local corpus (or any folder of .wav)
+# 1. Build a search index from a folder of .wav files
 python build_index.py --audio-dir "../arabic-speech-corpus/wav" --limit 50
 
-# 2. Launch the demo
+# 2. Launch the Gradio demo (prints local + share URLs)
 python app.py
 
 # 3. Run evaluations
@@ -51,8 +69,23 @@ python -m evaluation.eval_summary
 python -m evaluation.eval_search
 ```
 
-The first run downloads pretrained weights from Hugging Face (Whisper, mT5/MiniLM,
-sentence-transformers). Subsequent runs use the local cache.
+After `python app.py` you'll see:
+
+```
+* Running on local URL:  http://127.0.0.1:7860
+* Running on public URL: https://<random>.gradio.live
+```
+
+Open the local URL for private use, or share the `.gradio.live` URL (valid for
+1 week). To skip the public tunnel, edit `app.py` and set
+`demo.launch(share=False)`.
+
+### Docker
+
+```bash
+docker build -t arabic-audio .
+docker run -p 7860:7860 arabic-audio
+```
 
 ## Models used (default; all pretrained, swap-able in `config.py`)
 
