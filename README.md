@@ -2,9 +2,10 @@
 
 End-to-end pipeline that turns Arabic audio into searchable, summarised knowledge.
 
+![Image Alt](https://github.com/menna2150/Arabic-Audio-Understanding-Retrieval-system-NLP-/blob/fdbc3d136b9493f44c512574b3ced1efee8ea11c/Screenshot%202026-05-06%20191936.png)
 ## Live demo
 
-Gradio share link (temporary, expires after 1 week from launch):
+Gradio share link :
 **https://814df51487d4002494.gradio.live**
 
 If the link is dead, follow [Run locally](#run-locally) below — `python app.py`
